@@ -1,5 +1,5 @@
 # Tesseract
-[Tesseract loading a pyramid shape](http://i.imgur.com/T0SliZZ.png)
+[!Tesseract loading a pyramid shape](http://i.imgur.com/T0SliZZ.png)
 
 A low-level 3D model viewer with some overly complex projection and transformation formulas.
 
