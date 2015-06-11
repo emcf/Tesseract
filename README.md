@@ -27,7 +27,8 @@ If you want to make changes to the formulas or even help out with 4D transformat
 Projection Formula
 ![Projection Formula](http://emcf.github.io/projects_files/PerspectiveProjection.png)
 
-![Simple Slope Formula](http://emcf.github.io/projects_files/Slope.png)
+And lastly, the more simple slope Formula
+![Slope Formula](http://emcf.github.io/projects_files/Slope.png)
 
 Thanks for reading!
 
