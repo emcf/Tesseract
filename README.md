@@ -18,5 +18,18 @@ To create a model, simply create a .xyz file and write the co-ordinates of each 
 1,-1,1
 ```
 
+# Formulas to Understand
+If you want to make changes to the formulas or even help out with 4D transformations and projections, you'll have to understand how the code works. Here are the essential functions:
+
+3D Distance Formula
+![Distance Formula](http://emcf.github.io/projects_files/Distance.png)
+
+Projection Formula
+![Projection Formula](http://emcf.github.io/projects_files/PerspectiveProjection.png)
+
+![Simple Slope Formula](http://emcf.github.io/projects_files/Slope.png)
+
+Thanks for reading!
+
 # How to contribute
 Fork the project, or, even better, commit to the master project!
