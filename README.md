@@ -7,16 +7,13 @@ A low-level 3D model viewer with some overly complex projection and transformati
 
 To create a model, simply create a .xyz file and write the co-ordinates of each vertex in the file followed by a newline for each new vertex.
 
-Cube.xyz
+Pyramid.xyz
 ```
--1, 1,-1
- 1, 1,-1
--1,-1,-1
- 1,-1,-1
--1, 1, 1
- 1, 1, 1
--1,-1, 1
- 1,-1, 1
+-1,-1, 0
+-1, 1, 0
+ 1, 1, 0
+ 1,-1, 0
+ 0, 0, 3
 ```
 
 # Formulas to Understand
