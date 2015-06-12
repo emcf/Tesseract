@@ -10,6 +10,7 @@ A low-level 3D model viewer with some overly complex projection and transformati
 ### How to create models
 
 To create a model, create a .xyz file and write out each point followed by a new line.
+Easy, right?
 
 Pyramid.xyz
 ```
@@ -20,13 +21,9 @@ Pyramid.xyz
  0, 0, 3
 ```
 
-Easiest modeller ever, right?
+### Mesh Algorithm
 
-### Projection Formula
-
-This formula helps convert XYZ points to XY points. It uses rotation to draw a perspective view.
-
-![Projection Formula](http://emcf.github.io/projects_files/PerspectiveProjection.png)
+Right now, the mesh algorithm sucks. I am using a distance formula, but distance isn't necesarily the best way to calculate which sides create faces.
 
 ### How to contribute
 Fork the project, or, even better, commit to the master project! I am always looking for help.
