@@ -1,9 +1,6 @@
 # Tesseract
-<<<<<<< HEAD
+
 ![Tesseract loading a pyramid shape](http://i.imgur.com/0BS7TqX.png)
-=======
-![Tesseract loading a pyramid shape](http://i.imgur.com/XABwEf5.png)
->>>>>>> origin/master
 
 A low-level 3D model viewer with some overly complex projection and transformation formulas.
 
