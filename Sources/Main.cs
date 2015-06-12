@@ -13,8 +13,10 @@ namespace Tesseract
         bool DrawWireframe = true;
         bool IsFormDragging = false;
         bool IsRotating = false;
-        Point3D Rotation = new Point3D() { x = 0, y = 0, z = 0 };
-        Point3D[] Object;
+        Point4D Rotation = new Point4D() { x = 0, y = 0, z = 0, w = 0 };
+        Point[] Object2D;
+        Point3D[] Object3D;
+        Point4D[] Object4D;
         Point FormStartingMouseLocation;
         Point RotationStartingMouseLocation;
 
@@ -22,60 +24,76 @@ namespace Tesseract
         {
             InitializeComponent();
             tbPointSize.SendToBack();
+            tbMeshes.SendToBack();
             tbProjectionSize.SendToBack();
         }
 
         private void pnlPlane_Paint(object sender, PaintEventArgs e)
         {
-            if (Object != null)
+            SolidBrush PointBrush = new SolidBrush(Color.FromArgb(141, 185, 0));
+            Pen LinePen = new Pen(new SolidBrush(Color.FromArgb(33, 42, 65)));
+
+            // Draw the 2D grid in the background of the panel
+            for (int x = 0; x < pnlPlane.Width; x += 10)
             {
-                int Distance = 100;
-                Point[] Verticies = new Point[Object.Length];
+                for (int y = 0; y < pnlPlane.Height; y += 10)
+                {
+                    e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(33, 42, 65)), x, y, 1, 1);
+                }
+            }
+
+
+            int Distance = 100;
+
+            if (Object2D != null)
+            {
+                Point[] Verticies = new Point[Object2D.Length];
 
                 for (int i = 0; i < Verticies.Length; i++)
                 {
-                    // Kill me please
-                    Verticies[i] = Transformations2D.Translate2DPoint(Transformations3D.Project3DPoint(Transformations3D.Translate3DPoint(Transformations3D.Rotate3DPoint(Transformations3D.Scale3DPoint(Object[i], 10), Rotation), new Point3D() { x = 0, y = 0, z = Distance })), new Point() { X = pnlPlane.Width / 2, Y = pnlPlane.Height / 2 });
+                    Point Rotated = Transformations2D.Rotate2DPoint(Object2D[i], Rotation.x);
+                    Point Scaled = Transformations2D.Scale2DPoint(Rotated, ProjectionSize / 10);
+                    Point Translated = Transformations2D.Translate2DPoint(Scaled, new Point(pnlPlane.Width / 2, pnlPlane.Height / 2));
 
+                    Verticies[i] = Translated;
+                   
                     // Draw a point for each vertex
-                    SolidBrush PointBrush = new SolidBrush(Color.FromArgb(141, 185, 0));
                     e.Graphics.FillEllipse(PointBrush, Verticies[i].X, Verticies[i].Y, PointSize, PointSize);
 
                     // Draw line from each vertex to the other
-                    // TODO: Use GetDistance3D() to only draw lines between the 3 closest points to a point.
 
-                    Pen LinePen = new Pen(new SolidBrush(Color.FromArgb(33, 42, 65)));
                     if (DrawWireframe)
                     {
+                        #region Draw Wire Algorithm
                         // Lines are drawn from every point to every other point when full wireframe is enabled.
 
                         for (int n = 0; n < Verticies.Length; n++)
                         {
                             for (int n2 = 0; n2 < Verticies.Length; n2++)
                             {
-                                Point3D PointOne = Object[n];
-                                Point3D PointTwo = Object[n2];
+                                Point PointOne = Object2D[n];
+                                Point PointTwo = Object2D[n2];
                                 if (PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
                                 {
                                     e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
                                 }
                             }
                         }
+                        #endregion
                     }
                     else if (DrawMesh && i > 0)
                     {
+                        #region Draw Mesh Algorithm
                         Point p = Verticies[i];
 
                         // Set values for finding lowest distances
                         float[] VertexDistances = new float[Verticies.Length];
 
                         // This is the algorithm that finds the three lowest distances and draws lines to only them
-                        // This lets the screen draw an accurate mesh rather than lines from every point to the other
-                        // TODO: Use slope formula (http://emcf.github.io/projects_files/Slope.png) instead of distance to determine which lines intersect therefore shouldn't be drawn because they aren't faces
 
                         for (int n = 0; n < Verticies.Length; n++)
                         {
-                            VertexDistances[n] = Transformations3D.GetDistance3D(Object[i], Object[n]);
+                            VertexDistances[n] = Transformations2D.GetDistance2D(Object2D[i], Object2D[n]);
                         }
 
                         Array.Sort(VertexDistances);
@@ -84,8 +102,88 @@ namespace Tesseract
                         {
                             for (int n2 = 0; n2 < Verticies.Length; n2++)
                             {
-                                Point3D PointOne = Object[n];
-                                Point3D PointTwo = Object[n2];
+                                Point PointOne = Object2D[n];
+                                Point PointTwo = Object2D[n2];
+                                float PointsDistance = Transformations2D.GetDistance2D(PointOne, PointTwo);
+
+                                // Detect whether the point is one of the top 3 closes points to point PointOne
+                                bool ShouldDrawLine = (PointsDistance <= VertexDistances[0]);
+
+                                if (ShouldDrawLine && PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
+                                {
+                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
+                                }
+                            }
+                        }
+                        #endregion
+                    }
+                }
+            }
+            if (Object3D != null)
+            {
+                Point[] Verticies = new Point[Object3D.Length];
+
+                for (int i = 0; i < Verticies.Length; i++)
+                {
+                    // Scale the 3D vertex
+                    Point3D Scaled = Transformations3D.Scale3DPoint(Object3D[i], 10);
+                    // Convert the XYZW rotation to XYZ rotation by omitting the W value, rotate the pitch, roll, and yaw
+                    Point3D Rotated = Transformations3D.Rotate3DPoint(Scaled, new Point3D() { x = Rotation.x, y = Rotation.y, z = Rotation.z });
+                    // Translate it using distance
+                    Point3D Translated3D = Transformations3D.Translate3DPoint(Rotated, new Point3D() { x = 0, y = 0, z = Distance });
+                    // Convert 3D to 2D and project it in the middle of the panel
+                    Point Projected = Transformations3D.Project3DPoint(Translated3D);
+                    Point Translated2D = Transformations2D.Translate2DPoint(Projected, new Point(pnlPlane.Width / 2, pnlPlane.Height / 2));
+
+                    Verticies[i] = Translated2D;
+
+                    // Draw a point for each vertex
+                    e.Graphics.FillEllipse(PointBrush, Verticies[i].X, Verticies[i].Y, PointSize, PointSize);
+
+                    // Draw line from each vertex to the other
+
+                    if (DrawWireframe)
+                    {
+                        #region Draw Wire Algorithm
+                        // Lines are drawn from every point to every other point when full wireframe is enabled.
+
+                        for (int n = 0; n < Verticies.Length; n++)
+                        {
+                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            {
+                                Point3D PointOne = Object3D[n];
+                                Point3D PointTwo = Object3D[n2];
+                                if (PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
+                                {
+                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
+                                }
+                            }
+                        }
+                        #endregion
+                    }
+                    else if (DrawMesh && i > 0)
+                    {
+                        #region Draw Mesh Algorithm
+                        Point p = Verticies[i];
+
+                        // Set values for finding lowest distances
+                        float[] VertexDistances = new float[Verticies.Length];
+
+                        // This is the algorithm that finds the three lowest distances and draws lines to only them
+
+                        for (int n = 0; n < Verticies.Length; n++)
+                        {
+                            VertexDistances[n] = Transformations3D.GetDistance3D(Object3D[i], Object3D[n]);
+                        }
+
+                        Array.Sort(VertexDistances);
+
+                        for (int n = 0; n < Verticies.Length; n++)
+                        {
+                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            {
+                                Point3D PointOne = Object3D[n];
+                                Point3D PointTwo = Object3D[n2];
                                 float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
 
                                 // Detect whether the point is one of the top 3 closes points to point PointOne
@@ -97,6 +195,84 @@ namespace Tesseract
                                 }
                             }
                         }
+                        #endregion
+                    }
+                }
+            }
+            if (Object4D != null)
+            {
+                Point[] Verticies = new Point[Object4D.Length];
+
+                for (int i = 0; i < Verticies.Length; i++)
+                {
+                    // Kill me please
+                    Point4D Scaled = Transformations4D.Scale4DPoint(Object4D[i], 10);
+                    Point4D Translated4D = Transformations4D.Translate4DPoint(Scaled, new Point4D() { x = 0, y = 0, z = Distance, w = 0 });
+                    Point3D Projected3D = Transformations4D.Project4DPoint(Translated4D);
+                    Point Projected2D = Transformations3D.Project3DPoint(Projected3D);
+                    Point Translated2D = Transformations2D.Translate2DPoint(Projected2D, new Point(pnlPlane.Width / 2, pnlPlane.Height / 2));
+
+                    Verticies[i] = Translated2D;
+
+                    // Draw a point for each vertex
+                    e.Graphics.FillEllipse(PointBrush, Verticies[i].X, Verticies[i].Y, PointSize, PointSize);
+
+                    // Draw line from each vertex to the other
+
+                    if (DrawWireframe)
+                    {
+                        #region Draw Wire Algorithm
+                        // Lines are drawn from every point to every other point when full wireframe is enabled.
+
+                        for (int n = 0; n < Verticies.Length; n++)
+                        {
+                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            {
+                                Point4D PointOne = Object4D[n];
+                                Point4D PointTwo = Object4D[n2];
+                                if (PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
+                                {
+                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
+                                }
+                            }
+                        }
+                        #endregion
+                    }
+                    else if (DrawMesh && i > 0)
+                    {
+                        #region Draw Mesh Algorithm
+                        Point p = Verticies[i];
+
+                        // Set values for finding lowest distances
+                        float[] VertexDistances = new float[Verticies.Length];
+
+                        // This is the algorithm that finds the three lowest distances and draws lines to only them
+
+                        for (int n = 0; n < Verticies.Length; n++)
+                        {
+                            VertexDistances[n] = Transformations3D.GetDistance3D(Object3D[i], Object3D[n]);
+                        }
+
+                        Array.Sort(VertexDistances);
+
+                        for (int n = 0; n < Verticies.Length; n++)
+                        {
+                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            {
+                                Point3D PointOne = Object3D[n];
+                                Point3D PointTwo = Object3D[n2];
+                                float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
+
+                                // Detect whether the point is one of the top 3 closes points to point PointOne
+                                bool ShouldDrawLine = (PointsDistance <= VertexDistances[0]) || (PointsDistance <= VertexDistances[1]) || (PointsDistance <= VertexDistances[2]);
+
+                                if (ShouldDrawLine && PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
+                                {
+                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
+                                }
+                            }
+                        }
+                        #endregion
                     }
                 }
             }
@@ -113,11 +289,24 @@ namespace Tesseract
             float RotationY = Rotation.y / 180.0f;
             float RotationZ = Rotation.z / 180.0f;
 
-            pnlXRotation.Width = (int)(Math.Sin(RotationX) * 50);
-            pnlYRotation.Width = (int)(Math.Sin(RotationY) * 50);
-            pnlZRotation.Width = (int)(Math.Sin(RotationZ) * 50);
+            if (Object2D != null)
+            {
+                pnlXRotation.Width = (int)(Math.Sin(RotationX) * 50);
+                pnlYRotation.Width = 0;
+                pnlZRotation.Width = 0;
+            }
+            if (Object3D != null)
+            {
+                pnlXRotation.Width = (int)(Math.Sin(RotationX) * 50);
+                pnlYRotation.Width = (int)(Math.Sin(RotationY) * 50);
+                pnlZRotation.Width = (int)(Math.Sin(RotationZ) * 50);
+            }
+            if (Object4D != null)
+            {
+
+            }
         }
-    
+
         private void btnImport_Click(object sender, EventArgs e)
         {
             // Import .xyz file
@@ -125,22 +314,84 @@ namespace Tesseract
             {
                 // Read each line and seperate the (x, y, z) points at each comma
                 String[] Lines = File.ReadAllLines(ofdImport.FileName);
-                Object = new Point3D[Lines.Length];
+                int DimensionsInFile = Lines[0].Split(',').Length;
 
-                for (int i = 0; i < Lines.Length; i++)
+                // If in 2D
+                if (DimensionsInFile == 2)
                 {
-                    String[] SplitCoordinates = Lines[i].Split(',');
-                    int xVal = Convert.ToInt32(SplitCoordinates[0]);
-                    int yVal = Convert.ToInt32(SplitCoordinates[1]);
-                    int zVal = Convert.ToInt32(SplitCoordinates[2]);
+                    Object3D = null;
+                    Object4D = null;
+                    Object2D = new Point[Lines.Length];
 
-                    // Add point to object
-                    Object[i] = new Point3D()
+                    // Projection size in 2D should be lowered due to a change in the Transformations2D class
+                    ProjectionSize = ProjectionSize / 10;
+                    tbProjectionSize.Value = ProjectionSize;
+
+                    for (int i = 0; i < Lines.Length; i++)
                     {
-                        x = xVal,
-                        y = yVal,
-                        z = zVal
-                    };
+                        String[] SplitCoordinates = Lines[i].Split(',');
+                        int xVal = Convert.ToInt32(SplitCoordinates[0]);
+                        int yVal = Convert.ToInt32(SplitCoordinates[1]);
+
+                        // Add point to object
+                        Object2D[i] = new Point()
+                        {
+                            X = xVal,
+                            Y = yVal
+                        };
+                    }
+
+                }
+                // If in 3D
+                else if (DimensionsInFile == 3)
+                {
+                    Object2D = null;
+                    Object4D = null;
+                    Object3D = new Point3D[Lines.Length];
+
+                    for (int i = 0; i < Lines.Length; i++)
+                    {
+                        String[] SplitCoordinates = Lines[i].Split(',');
+                        int xVal = Convert.ToInt32(SplitCoordinates[0]);
+                        int yVal = Convert.ToInt32(SplitCoordinates[1]);
+                        int zVal = Convert.ToInt32(SplitCoordinates[2]);
+
+                        // Add point to object
+                        Object3D[i] = new Point3D()
+                        {
+                            x = xVal,
+                            y = yVal,
+                            z = zVal
+                        };
+                    }
+                }
+                else if (DimensionsInFile == 4)
+                {
+                    Object2D = null;
+                    Object3D = null;
+                    Object4D = new Point4D[Lines.Length];
+
+                    for (int i = 0; i < Lines.Length; i++)
+                    {
+                        String[] SplitCoordinates = Lines[i].Split(',');
+                        int xVal = Convert.ToInt32(SplitCoordinates[0]);
+                        int yVal = Convert.ToInt32(SplitCoordinates[1]);
+                        int zVal = Convert.ToInt32(SplitCoordinates[2]);
+                        int wVal = Convert.ToInt32(SplitCoordinates[3]);
+
+                        // Add point to object
+                        Object4D[i] = new Point4D()
+                        {
+                            x = xVal,
+                            y = yVal,
+                            z = zVal,
+                            w = wVal
+                        };
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("File not formatted correctly, there are " + DimensionsInFile.ToString() + " dimensions", "Error");
                 }
 
                 RedrawObject();
@@ -171,7 +422,8 @@ namespace Tesseract
 
                 Rotation.x = MovementX;
                 Rotation.y = MovementY;
-                Rotation.z = (Rotation.x + Rotation.y) / 2;
+                // I just arbitrarily chose what the z value should look like. It turned out nicely.
+                Rotation.z = (Rotation.x + Rotation.y) / 3;
 
                 RedrawObject();
             }

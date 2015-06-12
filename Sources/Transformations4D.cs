@@ -27,7 +27,7 @@ namespace Tesseract
                 {
                     x = p.x * frmMain.ProjectionSize / p.w,
                     y = p.y * frmMain.ProjectionSize / p.w,
-                    z = p.x * frmMain.ProjectionSize / p.w
+                    z = p.z * frmMain.ProjectionSize / p.w
                 };
             }
             catch
@@ -37,7 +37,7 @@ namespace Tesseract
                 {
                     x = p.x * frmMain.ProjectionSize,
                     y = p.y * frmMain.ProjectionSize,
-                    z = p.x * frmMain.ProjectionSize
+                    z = p.z * frmMain.ProjectionSize
                 };
             }
         }
@@ -61,14 +61,13 @@ namespace Tesseract
             float RotationY = rotation.y / 180.0f;
             float RotationZ = rotation.z / 180.0f;
             float RotationW = rotation.w / 180.0f;
+            int PointX, PointY, PointZ, PointW;
 
             // This is the perspective projection the program uses to convert (x, y, z, w) co-ordinates to (x, y, z) co-ordinates
             // This function is not on the internet... anywhere.
             // Below is the 3D rotation function. Hopefully I can change it to rotate 4D objects soon 
 
             /*
-            int PointX, PointY, PointZ;
-            
             PointY = point.y;
             PointZ = point.z;
             point.y = (int)(PointY * cos(RotationX) - PointZ * sin(RotationX));
