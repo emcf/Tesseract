@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -41,7 +35,7 @@ namespace Tesseract
                 for (int i = 0; i < Verticies.Length; i++)
                 {
                     // Kill me please
-                    Verticies[i] = Transformations.Translate2DPoint(Transformations.Project3DPoint(Transformations.Translate3DPoint(Transformations.Rotate3DPoint(Transformations.Scale3DPoint(Object[i], 10), Rotation), new Point3D() { x = 0, y = 0, z = Distance })), new Point() { X = pnlPlane.Width / 2, Y = pnlPlane.Height / 2 });
+                    Verticies[i] = Transformations2D.Translate2DPoint(Transformations3D.Project3DPoint(Transformations3D.Translate3DPoint(Transformations3D.Rotate3DPoint(Transformations3D.Scale3DPoint(Object[i], 10), Rotation), new Point3D() { x = 0, y = 0, z = Distance })), new Point() { X = pnlPlane.Width / 2, Y = pnlPlane.Height / 2 });
 
                     // Draw a point for each vertex
                     SolidBrush PointBrush = new SolidBrush(Color.FromArgb(141, 185, 0));
@@ -81,7 +75,7 @@ namespace Tesseract
 
                         for (int n = 0; n < Verticies.Length; n++)
                         {
-                            VertexDistances[n] = Transformations.GetDistance3D(Object[i], Object[n]);
+                            VertexDistances[n] = Transformations3D.GetDistance3D(Object[i], Object[n]);
                         }
 
                         Array.Sort(VertexDistances);
@@ -92,7 +86,7 @@ namespace Tesseract
                             {
                                 Point3D PointOne = Object[n];
                                 Point3D PointTwo = Object[n2];
-                                float PointsDistance = Transformations.GetDistance3D(PointOne, PointTwo);
+                                float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
 
                                 bool ShouldDrawLine = (PointsDistance <= VertexDistances[0]) || (PointsDistance <= VertexDistances[1]) || (PointsDistance <= VertexDistances[2]);
 

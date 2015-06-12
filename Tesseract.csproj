@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\Transformations2D.cs" />
     <Compile Include="Resources\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,7 +53,8 @@
     </Compile>
     <Compile Include="Resources\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Transformations.cs" />
+    <Compile Include="Resources\Transformations3D.cs" />
+    <Compile Include="Resources\Transformations4D.cs" />
     <EmbeddedResource Include="Resources\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -76,7 +78,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Properties\App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

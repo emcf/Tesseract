@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Tesseract
 {
-    class Transformations
+    class Transformations3D
     {
         // Transformations class using the Point3D data type to translate, transform, and project 2D and 3D Objects
         // TODO: Add a functional 4D projection algorithm to Tesseract
@@ -20,15 +17,6 @@ namespace Tesseract
                 x = p.x + t.x,
                 y = p.y + t.y,
                 z = p.z + t.z
-            };
-        }
-        public static Point Translate2DPoint(Point p, Point t)
-        {
-            // Move point P to point T's location
-            return new Point()
-            {
-                X = p.X + t.X,
-                Y = p.Y + t.Y
             };
         }
 
@@ -75,8 +63,7 @@ namespace Tesseract
 
 
             // This is the perspective projection the program uses to convert (x, y, z) co-ordinates to (x, y) co-ordinates
-            // The function this is based off of is on my website
-            // There is also a lot of information on creating perspective projections on wikipedia
+            // The function this is based off of is on my website. The formula is also on wikipedia.
             // http://emcf.github.io/projects_files/PerspectiveProjection.png
             // http://en.wikipedia.org/wiki/3D_projection
 
