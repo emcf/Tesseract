@@ -1,0 +1,9 @@
+C:\Users\Owner\Documents\GitHub\Tesseract\bin\Debug\Tesseract.exe.config
+C:\Users\Owner\Documents\GitHub\Tesseract\obj\Debug\Tesseract.csprojResolveAssemblyReference.cache
+C:\Users\Owner\Documents\GitHub\Tesseract\obj\Debug\Tesseract.frmMain.resources
+C:\Users\Owner\Documents\GitHub\Tesseract\obj\Debug\Tesseract.Properties.Resources.resources
+C:\Users\Owner\Documents\GitHub\Tesseract\obj\Debug\Tesseract.csproj.GenerateResource.Cache
+C:\Users\Owner\Documents\GitHub\Tesseract\bin\Debug\Tesseract.exe
+C:\Users\Owner\Documents\GitHub\Tesseract\bin\Debug\Tesseract.pdb
+C:\Users\Owner\Documents\GitHub\Tesseract\obj\Debug\Tesseract.exe
+C:\Users\Owner\Documents\GitHub\Tesseract\obj\Debug\Tesseract.pdb

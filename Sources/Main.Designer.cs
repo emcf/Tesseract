@@ -38,7 +38,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.tbPointSize = new System.Windows.Forms.TrackBar();
-            this.pnlPlane = new Tesseract.DoubleBufferedPanel();
+            this.pnlPlane = new DoubleBufferedPanel();
             this.pnlZRotation = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.pnlYRotation = new System.Windows.Forms.Panel();
@@ -116,7 +116,7 @@
             // 
             // ofdImport
             // 
-            this.ofdImport.Filter = "Tesseract Files|*.xyz";
+            this.ofdImport.Filter = "Tesseract Files|*.xy|*.xyz|*.xyzw";
             this.ofdImport.Title = "Import a Tesseract File";
             // 
             // cbDrawWireframe
