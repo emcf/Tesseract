@@ -9,7 +9,7 @@ A low-level 3D model viewer with some overly complex projection and transformati
 
 ### How to create models
 
-To create a model, create a .xyz file and write out each point followed by a new line for each new point.
+To create a model, create a .xyz file and write out each point followed by a new line.
 
 Pyramid.xyz
 ```
