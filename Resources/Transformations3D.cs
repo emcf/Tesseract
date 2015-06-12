@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -103,7 +103,7 @@ namespace Tesseract
 
             double DistX = Math.Pow(p.x - t.x, 2);
             double DistY = Math.Pow(p.y - t.y, 2);
-            double DistZ = Math.Pow(p.x - t.z, 2);
+            double DistZ = Math.Pow(p.z - t.z, 2);
             return (float)Math.Sqrt(DistX + DistY + DistZ);
         }
     }
