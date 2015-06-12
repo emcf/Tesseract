@@ -7,9 +7,9 @@ A low-level 3D model viewer with some overly complex projection and transformati
 ![3D](https://img.shields.io/badge/3D%20Models-Implemented-green.svg)
 ![4D](https://img.shields.io/badge/4D%20Models-Unimplemented-red.svg)
 
-### How to create models
+### How to create models in all dimensions
 
-To create a 2D model, plot the points in a .xy file
+Simply create a text file with cartesian points. Easy right?
 
 Triangle.xy
 ```
@@ -17,8 +17,6 @@ Triangle.xy
 -1,-1
  0, 3
 ```
-
-To create a 3D model, plot the points in a .xyz file
 
 Pyramid.xyz
 ```
@@ -28,8 +26,6 @@ Pyramid.xyz
  1,-1, 0
  0, 0, 3
 ```
-
-To create a 4D model, plot the points in a .xyzw file
 
 Pentachoron.xyzw (www.tiny.cc/5cell)
 ```
