@@ -38,7 +38,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.tbPointSize = new System.Windows.Forms.TrackBar();
-            this.pnlPlane = new DoubleBufferedPanel();
+            this.pnlPlane = new Tesseract.DoubleBufferedPanel();
             this.pnlZRotation = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.pnlYRotation = new System.Windows.Forms.Panel();
@@ -116,7 +116,7 @@
             // 
             // ofdImport
             // 
-            this.ofdImport.Filter = "Tesseract Files|*.xy|*.xyz|*.xyzw";
+            this.ofdImport.Filter = "3D Files|*.xyz|4D Files|*.xyzw|2D Files|*.xy";
             this.ofdImport.Title = "Import a Tesseract File";
             // 
             // cbDrawWireframe
@@ -153,9 +153,9 @@
             this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(12, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(166, 13);
+            this.lblTitle.Size = new System.Drawing.Size(177, 13);
             this.lblTitle.TabIndex = 10;
-            this.lblTitle.Text = "Tesseract - Low Level 3D Models";
+            this.lblTitle.Text = "Tesseract - Multidimensional Models";
             // 
             // tbPointSize
             // 

@@ -88,6 +88,7 @@ namespace Tesseract
                                 Point3D PointTwo = Object[n2];
                                 float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
 
+                                // Detect whether the point is one of the top 3 closes points to point PointOne
                                 bool ShouldDrawLine = (PointsDistance <= VertexDistances[0]) || (PointsDistance <= VertexDistances[1]) || (PointsDistance <= VertexDistances[2]);
 
                                 if (ShouldDrawLine && PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
