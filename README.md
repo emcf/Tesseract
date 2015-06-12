@@ -36,11 +36,6 @@ Pentachoron.xyzw (www.tiny.cc/5cell)
  0, 0, 0, 1.8
 ```
 
-Hexateron.xyzw
-```
-no
-```
-
 ### Mesh Algorithm
 
 Right now, the mesh algorithm sucks. I am using a distance formula, but distance isn't necesarily the best way to calculate which sides create faces.
