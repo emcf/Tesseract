@@ -9,8 +9,16 @@ A low-level 3D model viewer with some overly complex projection and transformati
 
 ### How to create models
 
-To create a model, create a .xyz file and write out each point followed by a new line.
-Easy, right?
+To create a 2D model, plot the points in a .xy file
+
+Triangle.xy
+```
+ 1,-1
+-1,-1
+ 0, 3
+```
+
+To create a 3D model, plot the points in a .xyz file
 
 Pyramid.xyz
 ```
@@ -19,6 +27,17 @@ Pyramid.xyz
  1, 1, 0
  1,-1, 0
  0, 0, 3
+```
+
+To create a 4D model, plot the points in a .xyzw file
+
+Pentachoron.xyzw (www.tiny.cc/5cell)
+```
+ 1, 1, 1,-0.4
+ 1,-1,-1,-0.4
+-1, 1,-1,-0.4
+-1,-1, 1,-0.4
+ 0, 0, 0, 1.8
 ```
 
 ### Mesh Algorithm
