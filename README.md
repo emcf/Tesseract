@@ -9,7 +9,7 @@ A low-level 3D model viewer with some overly complex projection and transformati
 
 ### How to create models in all dimensions
 
-Simply create a text file with cartesian points. Easy right?
+Simply create a text file with a point cloud in it. Easy right?
 
 Triangle.xy
 ```
