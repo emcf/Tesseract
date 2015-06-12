@@ -3,6 +3,10 @@
 
 A low-level 3D model viewer with some overly complex projection and transformation formulas.
 
+![2D](https://img.shields.io/badge/2D%20Models-Unimplemented-red.svg)
+![3D](https://img.shields.io/badge/3D%20Models-Implemented-green.svg)
+![4D](https://img.shields.io/badge/4D%20Models-Unimplemented-red.svg)
+
 # How to create models
 
 To create a model, simply create a .xyz file and write the co-ordinates of each vertex in the file followed by a newline for each new vertex.
