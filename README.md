@@ -39,7 +39,7 @@ Pentachoron.xyz (www.tiny.cc/5cell)
 
 ### Mesh Algorithm
 
-Right now, the mesh algorithm sucks. I am using a distance formula, but distance isn't necesarily the best way to calculate which sides create faces.
+This is the algorithm (which still needs some efficiency fixes) that detects which verticies to draw lines to. The algorithm takes the number of dimensions you are working with and draws lines from one vertex to that amount of its closest verticies.
 
 ### How to contribute
 Fork the project, or, even better, commit to the master project! I am always looking for help.
