@@ -8,18 +8,21 @@ namespace Tesseract
     public partial class frmMain : Form
     {
         public static int ProjectionSize = 300;
+        int Distance = 100;
         int PointSize = 5;
+        
         bool DrawMesh = true;
         bool DrawWireframe = false;
         bool IsFormDragging = false;
         bool IsRotating = false;
+        
         Point4D Rotation = new Point4D() { x = 0, y = 0, z = 0, w = 0 };
         Point[] Object2D;
         Point3D[] Object3D;
         Point4D[] Object4D;
+        
         Point FormStartingMouseLocation;
         Point RotationStartingMouseLocation;
-        int Distance = 100;
 
         public frmMain()
         {
