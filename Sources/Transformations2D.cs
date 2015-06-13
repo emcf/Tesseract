@@ -31,13 +31,11 @@ namespace Tesseract
             // Convert the rotation to radians
             rotation = rotation / 180f;
 
-            // Algorithm from https://upload.wikimedia.org/math/7/5/2/752fd6396a9c9d026f10eccb39ddca15.png
+            // 2D rotation algorithm shown at emcf.github.io/projects_files/Rotation2D.png
 
             int PointX = point.X;
             int PointY = point.Y;
-
             // Multiply by 10 for a smoother rotation feeling
-
             point.X = (int)(PointX * cos(rotation) * 10 - PointY * sin(rotation) * 10);
             point.Y = (int)(PointX * sin(rotation) * 10 + PointY * cos(rotation) * 10);
 
