@@ -2,7 +2,7 @@
 
 ![Tesseract loading a pyramid shape](http://i.imgur.com/0BS7TqX.png)
 
-A low-level 3D model viewer with some overly complex projection and transformation formulas.
+A vertex-based multidimensional model viewer
 
 ![2D](https://img.shields.io/badge/2D%20Models-Implemented-green.svg)
 ![3D](https://img.shields.io/badge/3D%20Models-Implemented-green.svg)

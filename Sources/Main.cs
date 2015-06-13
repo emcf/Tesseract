@@ -10,7 +10,7 @@ namespace Tesseract
         public static int ProjectionSize = 300;
         int PointSize = 5;
         bool DrawMesh = true;
-        bool DrawWireframe = true;
+        bool DrawWireframe = false;
         bool IsFormDragging = false;
         bool IsRotating = false;
         Point4D Rotation = new Point4D() { x = 0, y = 0, z = 0, w = 0 };
@@ -19,12 +19,13 @@ namespace Tesseract
         Point4D[] Object4D;
         Point FormStartingMouseLocation;
         Point RotationStartingMouseLocation;
+        int Distance = 100;
 
         public frmMain()
         {
             InitializeComponent();
             tbPointSize.SendToBack();
-            tbMeshes.SendToBack();
+            tbDistance.SendToBack();
             tbProjectionSize.SendToBack();
         }
 
@@ -41,9 +42,6 @@ namespace Tesseract
                     e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(33, 42, 65)), x, y, 1, 1);
                 }
             }
-
-
-            int Distance = 100;
 
             if (Object2D != null)
             {
@@ -106,8 +104,8 @@ namespace Tesseract
                                 Point PointTwo = Object2D[n2];
                                 float PointsDistance = Transformations2D.GetDistance2D(PointOne, PointTwo);
 
-                                // Detect whether the point is one of the top 3 closes points to point PointOne
-                                bool ShouldDrawLine = (PointsDistance <= VertexDistances[0]);
+                                // Detect whether the point is one of the top 2 closes points to point PointOne
+                                bool ShouldDrawLine = PointsDistance <= VertexDistances[1];
 
                                 if (ShouldDrawLine && PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
                                 {
@@ -187,7 +185,7 @@ namespace Tesseract
                                 float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
 
                                 // Detect whether the point is one of the top 3 closes points to point PointOne
-                                bool ShouldDrawLine = (PointsDistance <= VertexDistances[0]) || (PointsDistance <= VertexDistances[1]) || (PointsDistance <= VertexDistances[2]);
+                                bool ShouldDrawLine = PointsDistance <= VertexDistances[2];
 
                                 if (ShouldDrawLine && PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
                                 {
@@ -263,8 +261,8 @@ namespace Tesseract
                                 Point3D PointTwo = Object3D[n2];
                                 float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
 
-                                // Detect whether the point is one of the top 3 closes points to point PointOne
-                                bool ShouldDrawLine = (PointsDistance <= VertexDistances[0]) || (PointsDistance <= VertexDistances[1]) || (PointsDistance <= VertexDistances[2]);
+                                // Detect whether the point is one of the top 4 closes points to point PointOne
+                                bool ShouldDrawLine = PointsDistance <= VertexDistances[3];
 
                                 if (ShouldDrawLine && PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
                                 {
@@ -468,6 +466,11 @@ namespace Tesseract
         private void pnlPlane_MouseUp(object sender, MouseEventArgs e)
         {
             IsRotating = false;
+        }
+
+        private void tbDistance_Scroll(object sender, EventArgs e)
+        {
+            Distance = tbDistance.Value;
         }
     }
 

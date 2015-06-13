@@ -38,7 +38,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.tbPointSize = new System.Windows.Forms.TrackBar();
-            this.tbMeshes = new System.Windows.Forms.TrackBar();
+            this.tbDistance = new System.Windows.Forms.TrackBar();
             this.label6 = new System.Windows.Forms.Label();
             this.pnlPlane = new Tesseract.DoubleBufferedPanel();
             this.pnlXRotation = new System.Windows.Forms.Panel();
@@ -49,7 +49,7 @@
             this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tbProjectionSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbPointSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbMeshes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbDistance)).BeginInit();
             this.pnlPlane.SuspendLayout();
             this.pnlXRotation.SuspendLayout();
             this.pnlYRotation.SuspendLayout();
@@ -125,8 +125,6 @@
             // cbDrawWireframe
             // 
             this.cbDrawWireframe.AutoSize = true;
-            this.cbDrawWireframe.Checked = true;
-            this.cbDrawWireframe.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbDrawWireframe.Cursor = System.Windows.Forms.Cursors.Default;
             this.cbDrawWireframe.ForeColor = System.Drawing.Color.White;
             this.cbDrawWireframe.Location = new System.Drawing.Point(677, 63);
@@ -171,24 +169,26 @@
             this.tbPointSize.Value = 5;
             this.tbPointSize.Scroll += new System.EventHandler(this.tbPointSize_Scroll);
             // 
-            // tbMeshes
+            // tbDistance
             // 
-            this.tbMeshes.Location = new System.Drawing.Point(525, 64);
-            this.tbMeshes.Name = "tbMeshes";
-            this.tbMeshes.Size = new System.Drawing.Size(146, 45);
-            this.tbMeshes.TabIndex = 12;
-            this.tbMeshes.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.tbMeshes.Value = 3;
+            this.tbDistance.Location = new System.Drawing.Point(525, 64);
+            this.tbDistance.Maximum = 500;
+            this.tbDistance.Name = "tbDistance";
+            this.tbDistance.Size = new System.Drawing.Size(146, 45);
+            this.tbDistance.TabIndex = 12;
+            this.tbDistance.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.tbDistance.Value = 100;
+            this.tbDistance.Scroll += new System.EventHandler(this.tbDistance_Scroll);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(475, 67);
+            this.label6.Location = new System.Drawing.Point(473, 67);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 13);
+            this.label6.Size = new System.Drawing.Size(49, 13);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Meshes";
+            this.label6.Text = "Distance";
             // 
             // pnlPlane
             // 
@@ -265,7 +265,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(65)))));
             this.ClientSize = new System.Drawing.Size(846, 585);
-            this.Controls.Add(this.tbMeshes);
+            this.Controls.Add(this.tbDistance);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnClose);
@@ -287,7 +287,7 @@
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.frmMain_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.tbProjectionSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbPointSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbMeshes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbDistance)).EndInit();
             this.pnlPlane.ResumeLayout(false);
             this.pnlXRotation.ResumeLayout(false);
             this.pnlXRotation.PerformLayout();
@@ -319,7 +319,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TrackBar tbPointSize;
-        private System.Windows.Forms.TrackBar tbMeshes;
+        private System.Windows.Forms.TrackBar tbDistance;
         private System.Windows.Forms.Label label6;
     }
 
