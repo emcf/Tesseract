@@ -487,17 +487,4 @@ namespace Tesseract
         public int z { get; set; }
         public int w { get; set; }
     }
-
-
-    public class DoubleBufferedPanel : Panel
-    {
-        // Double Buffered Panel to remove flickering during panel refreshes
-        // This is actually not my code. In fact, I learned what Double Buffering is today.
-        public DoubleBufferedPanel()
-        {
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.OptimizedDoubleBuffer |
-            ControlStyles.UserPaint, true);
-        }
-    }
 }

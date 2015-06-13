@@ -322,5 +322,17 @@
         private System.Windows.Forms.TrackBar tbMeshes;
         private System.Windows.Forms.Label label6;
     }
+
+    public class DoubleBufferedPanel : System.Windows.Forms.Panel
+    {
+        // Double Buffered Panel to remove flickering during panel refreshes
+        // This is actually not my code. In fact, I learned what Double Buffering is today.
+        public DoubleBufferedPanel()
+        {
+            this.SetStyle(System.Windows.Forms.ControlStyles.AllPaintingInWmPaint |
+            System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer |
+            System.Windows.Forms.ControlStyles.UserPaint, true);
+        }
+    }
 }
 
