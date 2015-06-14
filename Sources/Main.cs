@@ -65,33 +65,25 @@ namespace Tesseract
 
                     if (DrawWireframe)
                     {
-                        #region Draw Wire Algorithm
                         // Lines are drawn from every point to every other point when full wireframe is enabled.
-
-                        for (int n = 0; n < Verticies.Length; n++)
+                        for (int i2 = 0; i2 < Verticies.Length; i2++)
                         {
-                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            Point PointOne = Object2D[i];
+                            Point PointTwo = Object2D[i2];
+                            if (PointOne != PointTwo && !Verticies[i].IsEmpty && !Verticies[i2].IsEmpty)
                             {
-                                Point PointOne = Object2D[n];
-                                Point PointTwo = Object2D[n2];
-                                if (PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
-                                {
-                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
-                                }
+                                e.Graphics.DrawLine(LinePen, Verticies[i], Verticies[i2]);
                             }
                         }
-                        #endregion
                     }
                     else if (DrawMesh && i > 0)
                     {
-                        #region Draw Mesh Algorithm
                         Point p = Verticies[i];
 
                         // Set values for finding lowest distances
                         float[] VertexDistances = new float[Verticies.Length];
 
                         // This is the algorithm that finds the three lowest distances and draws lines to only them
-
                         for (int n = 0; n < Verticies.Length; n++)
                         {
                             VertexDistances[n] = Transformations2D.GetDistance2D(Object2D[i], Object2D[n]);
@@ -99,24 +91,20 @@ namespace Tesseract
 
                         Array.Sort(VertexDistances);
 
-                        for (int n = 0; n < Verticies.Length; n++)
-                        {
-                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            for (int i2 = 0; i2 < Verticies.Length; i2++)
                             {
-                                Point PointOne = Object2D[n];
-                                Point PointTwo = Object2D[n2];
+                                Point PointOne = Object2D[i];
+                                Point PointTwo = Object2D[i2];
                                 float PointsDistance = Transformations2D.GetDistance2D(PointOne, PointTwo);
 
                                 // Detect whether the point is one of the top 2 closes points to point PointOne
                                 bool ShouldDrawLine = PointsDistance <= VertexDistances[1];
 
-                                if (ShouldDrawLine && PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
+                                if (ShouldDrawLine && PointOne != PointTwo && !Verticies[i].IsEmpty && !Verticies[i2].IsEmpty)
                                 {
-                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
+                                    e.Graphics.DrawLine(LinePen, Verticies[i], Verticies[i2]);
                                 }
-                            }
                         }
-                        #endregion
                     }
                 }
             }
@@ -142,29 +130,21 @@ namespace Tesseract
                     e.Graphics.FillEllipse(PointBrush, Verticies[i].X, Verticies[i].Y, PointSize, PointSize);
 
                     // Draw line from each vertex to the other
-
                     if (DrawWireframe)
                     {
-                        #region Draw Wire Algorithm
                         // Lines are drawn from every point to every other point when full wireframe is enabled.
-
-                        for (int n = 0; n < Verticies.Length; n++)
+                        for (int i2 = 0; i2 < Verticies.Length; i2++)
                         {
-                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            Point3D PointOne = Object3D[i];
+                            Point3D PointTwo = Object3D[i2];
+                            if (PointOne != PointTwo && !Verticies[i].IsEmpty && !Verticies[i2].IsEmpty)
                             {
-                                Point3D PointOne = Object3D[n];
-                                Point3D PointTwo = Object3D[n2];
-                                if (PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
-                                {
-                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
-                                }
+                                e.Graphics.DrawLine(LinePen, Verticies[i], Verticies[i2]);
                             }
                         }
-                        #endregion
                     }
                     else if (DrawMesh && i > 0)
                     {
-                        #region Draw Mesh Algorithm
                         Point p = Verticies[i];
 
                         // Set values for finding lowest distances
@@ -179,24 +159,20 @@ namespace Tesseract
 
                         Array.Sort(VertexDistances);
 
-                        for (int n = 0; n < Verticies.Length; n++)
+                        for (int i2 = 0; i2 < Verticies.Length; i2++)
                         {
-                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            Point3D PointOne = Object3D[i];
+                            Point3D PointTwo = Object3D[i2];
+                            float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
+
+                            // Detect whether the point is one of the top 3 closes points to point PointOne
+                            bool ShouldDrawLine = PointsDistance <= VertexDistances[2];
+
+                            if (ShouldDrawLine && PointOne != PointTwo && !Verticies[i].IsEmpty && !Verticies[i2].IsEmpty)
                             {
-                                Point3D PointOne = Object3D[n];
-                                Point3D PointTwo = Object3D[n2];
-                                float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
-
-                                // Detect whether the point is one of the top 3 closes points to point PointOne
-                                bool ShouldDrawLine = PointsDistance <= VertexDistances[2];
-
-                                if (ShouldDrawLine && PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
-                                {
-                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
-                                }
+                                e.Graphics.DrawLine(LinePen, Verticies[i], Verticies[i2]);
                             }
                         }
-                        #endregion
                     }
                 }
             }
@@ -222,26 +198,19 @@ namespace Tesseract
 
                     if (DrawWireframe)
                     {
-                        #region Draw Wire Algorithm
                         // Lines are drawn from every point to every other point when full wireframe is enabled.
-
-                        for (int n = 0; n < Verticies.Length; n++)
+                        for (int i2 = 0; i2 < Verticies.Length; i2++)
                         {
-                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            Point4D PointOne = Object4D[i];
+                            Point4D PointTwo = Object4D[i2];
+                            if (PointOne != PointTwo && !Verticies[i].IsEmpty && !Verticies[i2].IsEmpty)
                             {
-                                Point4D PointOne = Object4D[n];
-                                Point4D PointTwo = Object4D[n2];
-                                if (PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
-                                {
-                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
-                                }
+                                e.Graphics.DrawLine(LinePen, Verticies[i], Verticies[i2]);
                             }
                         }
-                        #endregion
                     }
                     else if (DrawMesh && i > 0)
                     {
-                        #region Draw Mesh Algorithm
                         Point p = Verticies[i];
 
                         // Set values for finding lowest distances
@@ -256,24 +225,20 @@ namespace Tesseract
 
                         Array.Sort(VertexDistances);
 
-                        for (int n = 0; n < Verticies.Length; n++)
+                        for (int i2 = 0; i2 < Verticies.Length; i2++)
                         {
-                            for (int n2 = 0; n2 < Verticies.Length; n2++)
+                            Point3D PointOne = Object3D[i];
+                            Point3D PointTwo = Object3D[i2];
+                            float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
+
+                            // Detect whether the point is one of the top 4 closes points to point PointOne
+                            bool ShouldDrawLine = PointsDistance <= VertexDistances[3];
+
+                            if (ShouldDrawLine && PointOne != PointTwo && !Verticies[i].IsEmpty && !Verticies[i2].IsEmpty)
                             {
-                                Point3D PointOne = Object3D[n];
-                                Point3D PointTwo = Object3D[n2];
-                                float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
-
-                                // Detect whether the point is one of the top 4 closes points to point PointOne
-                                bool ShouldDrawLine = PointsDistance <= VertexDistances[3];
-
-                                if (ShouldDrawLine && PointOne != PointTwo && !Verticies[n].IsEmpty && !Verticies[n2].IsEmpty)
-                                {
-                                    e.Graphics.DrawLine(LinePen, Verticies[n], Verticies[n2]);
-                                }
+                                e.Graphics.DrawLine(LinePen, Verticies[i], Verticies[i2]);
                             }
                         }
-                        #endregion
                     }
                 }
             }
