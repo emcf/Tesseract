@@ -184,8 +184,9 @@ namespace Tesseract
                 {
                     // Kill me please
                     Point4D Scaled = Transformations4D.Scale4DPoint(Object4D[i], 10);
-                    Point4D Translated4D = Transformations4D.Translate4DPoint(Scaled, new Point4D() { x = 0, y = 0, z = Distance, w = 0 });
-                    Point3D Projected3D = Transformations4D.Project4DPoint(Translated4D);
+                    Point4D Translated = Transformations4D.Translate4DPoint(Scaled, new Point4D() { x = 0, y = 0, z = Distance, w = 0 });
+                    Point4D Rotated = Transformations4D.Rotate4DPoint(Translated, Rotation);
+                    Point3D Projected3D = Transformations4D.Project4DPoint(Translated);
                     Point Projected2D = Transformations3D.Project3DPoint(Projected3D);
                     Point Translated2D = Transformations2D.Translate2DPoint(Projected2D, new Point(pnlPlane.Width / 2, pnlPlane.Height / 2));
 
@@ -220,16 +221,16 @@ namespace Tesseract
 
                         for (int n = 0; n < Verticies.Length; n++)
                         {
-                            VertexDistances[n] = Transformations3D.GetDistance3D(Object3D[i], Object3D[n]);
+                            VertexDistances[n] = Transformations4D.GetDistance4D(Object4D[i], Object4D[n]);
                         }
 
                         Array.Sort(VertexDistances);
 
                         for (int i2 = 0; i2 < Verticies.Length; i2++)
                         {
-                            Point3D PointOne = Object3D[i];
-                            Point3D PointTwo = Object3D[i2];
-                            float PointsDistance = Transformations3D.GetDistance3D(PointOne, PointTwo);
+                            Point4D PointOne = Object4D[i];
+                            Point4D PointTwo = Object4D[i2];
+                            float PointsDistance = Transformations4D.GetDistance4D(PointOne, PointTwo);
 
                             // Detect whether the point is one of the top 4 closes points to point PointOne
                             bool ShouldDrawLine = PointsDistance <= VertexDistances[3];
@@ -331,6 +332,7 @@ namespace Tesseract
                         };
                     }
                 }
+                // If in 4D
                 else if (DimensionsInFile == 4)
                 {
                     Object2D = null;
