@@ -1,7 +1,5 @@
 # Tesseract
 
-![Tesseract loading a pyramid shape](http://i.imgur.com/0BS7TqX.png)
-
 A vertex-based multidimensional model viewer - http://emcf.github.io/tesseract
 
 ### How to create models in all dimensions
