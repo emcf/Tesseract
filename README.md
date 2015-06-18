@@ -4,10 +4,6 @@
 
 A vertex-based multidimensional model viewer - http://emcf.github.io/tesseract
 
-![2D](https://img.shields.io/badge/2D%20Models-Implemented-green.svg)
-![3D](https://img.shields.io/badge/3D%20Models-Implemented-green.svg)
-![4D](https://img.shields.io/badge/4D%20Models-Unimplemented-red.svg)
-
 ### How to create models in all dimensions
 
 Simply create a text file with a point cloud in it. Easy right?
