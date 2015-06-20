@@ -2,7 +2,7 @@
 
 A vertex-based multidimensional model viewer - http://emcf.github.io/tesseract
 
-![Tesseract loading a pyramid shape](http://i.imgur.com/0BS7TqX.png)
+![Tesseract loading a pyramid shape](http://emcf.github.io/tesseract_files/3D.png)
  		 
 ![2D](https://img.shields.io/badge/2D%20Models-Implemented-green.svg)		 ![2D](https://img.shields.io/badge/2D%20Models-Implemented-green.svg)
 ![4D](https://img.shields.io/badge/4D%20Models-I'm working on it-yellow.svg)		
