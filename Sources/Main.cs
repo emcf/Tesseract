@@ -390,8 +390,9 @@ namespace Tesseract
 
                 Rotation.x = MovementX;
                 Rotation.y = MovementY;
-                // I just arbitrarily chose what the z value should look like. It turned out nicely.
-                Rotation.z = (Rotation.x + Rotation.y) / 3;
+                // I just arbitrarily chose what the Z and W value should look like. It turned out nicely.
+                Rotation.z = (Rotation.x + Rotation.y) / 2;
+                Rotation.w = (Rotation.z + Rotation.x + Rotation.y) / 3;
 
                 RedrawObject();
             }
