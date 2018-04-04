@@ -1,13 +1,10 @@
 # Tesseract
 
-A vertex-based multidimensional model viewer - http://emcf.github.io/tesseract
+View and rotate the row vectors of a matrix
  		 
-![2D](https://img.shields.io/badge/2D%20Models-Implemented-green.svg)		 ![2D](https://img.shields.io/badge/2D%20Models-Implemented-green.svg)
-![4D](https://img.shields.io/badge/4D%20Models-I'm working on it-yellow.svg)		
-
 ### How to create models in all dimensions
 
-Simply create a text file with a point cloud in it. Easy right?
+Simply create a text file containing a matrix of row vectors.
 
 Triangle.xyz
 ```
@@ -25,7 +22,7 @@ Pyramid.xyz
  0, 0, 3
 ```
 
-Pentachoron.xyz (www.tiny.cc/5cell)
+Pentachoron.xyz
 ```
  1, 1, 1, 0
  1,-1,-1, 0
@@ -36,7 +33,4 @@ Pentachoron.xyz (www.tiny.cc/5cell)
 
 ### Mesh Algorithm
 
-This is the algorithm (which still needs some efficiency fixes) that detects which verticies to draw lines to. The algorithm takes the number of dimensions you are working with and draws lines from one vertex to that amount of its closest verticies.
-
-### How to contribute
-Fork the project, or, even better, commit to the master project! I am always looking for help.
+The algorithm simply draws lines from point i to nearest point j.
