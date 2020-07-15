@@ -30,7 +30,3 @@ Pentachoron.xyz
 -1,-1, 1, 0
  0, 0, 0, 3
 ```
-
-### Mesh Algorithm
-
-The algorithm simply draws lines from point i to nearest point j.
